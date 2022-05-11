@@ -10,7 +10,7 @@
     <title>Videoinfo</title>
   </head>
   <body>
-    <div class="container">
+    <div class="videoinfo container">
       <div class="row">
         <div class="col-12 mt-5">
           <h1>Video Info</h1>
@@ -38,6 +38,8 @@
     <script>
       const electron = require("electron");
       const { ipcRenderer } = electron;
+      let videoinfoWrapper = document.querySelector(".videoinfo");
+      let col = createElement("div", { elClass: "col-md-12" });
 
       window.addEventListener("DOMContentLoaded", () => {
         document
@@ -48,6 +50,23 @@
             ipcRenderer.send("video:submited", path);
           });
       });
+
+      ipcRenderer.on("video:metadata", (event, duration) => {
+        let alert = createElement("div", { elClass: "alert alert-success" });
+        alert.innerHTML = `Video duration <b>${duration}</b> seconds`;
+        col.appendChild(alert);
+        videoinfoWrapper.children[0].appendChild(col);
+      });
+
+      function createElement(element = "div", ...rest) {
+        let el = document.createElement(element);
+        rest[0].elClass ? el.setAttribute("class", `${rest[0].elClass}`) : null;
+        rest[0].elId ? el.setAttribute("id", `${rest[0].elId}`) : null;
+        rest[0].innerHTML !== undefined && rest[0].innerHTML.length > 0
+          ? (el.innerHTML = rest[0].innerHTML)
+          : null;
+        return el;
+      }
     </script>
   </body>
 </html>
