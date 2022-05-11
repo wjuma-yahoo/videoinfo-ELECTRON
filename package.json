@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "electron": "electron ."
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "electron": "^18.2.0"
+    "electron": "^18.2.0",
+    "electron-browser-window-options": "^1.0.4",
+    "fluent-ffmpeg": "^2.1.2"
   }
 }
